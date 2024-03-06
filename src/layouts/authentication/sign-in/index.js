@@ -53,17 +53,16 @@ function Basic() {
   const navigate = useNavigate();
 
   const handleLogin = async (email, password) => {
-    if (!email || !password) {
-      console.error("Email and password are required.");
-      return;
-    }
     try {
+      if (!email || !password) {
+        console.error("Email and password are required.");
+        return;
+      }
       const response = await login(email, password);
-      console.log("a",response);
-      if (response) {
+      console.log("a", response);
+      if (response == true) {
         navigate("/dashboard", { replace: true });
-      } 
-      
+      }
     } catch (error) {
       console.error("Error during login:", error);
     }
