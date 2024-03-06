@@ -12,22 +12,15 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
-import { useState } from "react";
-
+/* eslint-disable */
+import { useState, useEffect } from "react";
+import axios from "axios";
 // react-router-dom components
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 // @mui material components
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
-import Grid from "@mui/material/Grid";
-import MuiLink from "@mui/material/Link";
-
-// @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -41,10 +34,40 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
+const login = async (email, password) => {
+  try {
+    const response = await axios.post('http://localhost:4000/auth/login', { email, password });
+    console.log("Authentification réussie :", response.data)
+    return true;
+  } catch (error) {
+    console.error("Erreur lors de l'authentification :", error);
+    console.log(error);
+    return { success: false, message: "Une erreur s'est produite lors de l'authentification." };
+  }
+};
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const navigate = useNavigate();
+
+  const handleLogin = async (email, password) => {
+    if (!email || !password) {
+      console.error("Email and password are required.");
+      return;
+    }
+    try {
+      const response = await login(email, password);
+      console.log("a",response);
+      if (response) {
+        navigate("/dashboard", { replace: true });
+      } 
+      
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  }
 
   return (
     <BasicLayout image={bgImage}>
@@ -63,31 +86,14 @@ function Basic() {
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
             Sign in
           </MDTypography>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <FacebookIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GitHubIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-            <Grid item xs={2}>
-              <MDTypography component={MuiLink} href="#" variant="body1" color="white">
-                <GoogleIcon color="inherit" />
-              </MDTypography>
-            </Grid>
-          </Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput type="email" label="Email" fullWidth value={email} onChange={(e) => setEmail(e.target.value)} />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput type="password" label="Password" fullWidth value={password} onChange={(e) => setPassword(e.target.value)} />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -102,7 +108,7 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" fullWidth onClick={() => handleLogin(email, password)}>
                 sign in
               </MDButton>
             </MDBox>

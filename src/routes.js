@@ -34,7 +34,7 @@ Coded by www.creative-tim.com
   10. The `title` key is only for the item with the type of `title` and its used for the title text on the Sidenav.
   10. The `component` key is used to store the component of its route.
 */
-
+/* eslint-disable */
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
@@ -112,6 +112,14 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+  },
+  {
+    type: "collapse", 
+    name: "Logout",
+    key: "logout",
+    icon: <Icon fontSize="small">logout</Icon>,
+    route: "/authentication/sign-in",
+    component: <SignIn />,
   },
 ];
 

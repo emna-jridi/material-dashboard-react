@@ -12,7 +12,7 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
+/* eslint-disable */
 // react-router-dom components
 import { Link } from "react-router-dom";
 
@@ -48,10 +48,7 @@ function Cover() {
           textAlign="center"
         >
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Join us today
-          </MDTypography>
-          <MDTypography display="block" variant="button" color="white" my={1}>
-            Enter your email and password to register
+           Sign Up
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
@@ -64,6 +61,45 @@ function Cover() {
             </MDBox>
             <MDBox mb={2}>
               <MDInput type="password" label="Password" variant="standard" fullWidth />
+            </MDBox>
+
+            <MDBox role="radiogroup" aria-labelledby="navbar-options">
+              <MDBox
+                component="label"
+                htmlFor="light-mode"
+                display="flex"
+                alignItems="center"
+                sx={{ cursor: "pointer" }}
+              >
+                <input
+                  type="radio"
+                  id="Adminastrateur"
+                  name="theme"
+                  value=""
+                  checked="{darkMode}"
+                />
+                <MDTypography variant="button" fontWeight="regular" color="inherit" ml={0.5}>
+                  Light Mode
+                </MDTypography>
+              </MDBox>
+              <MDBox
+                component="label"
+                htmlFor="dark-mode"
+                display="flex"
+                alignItems="center"
+                sx={{ cursor: "pointer" }}
+              >
+                <input
+                  type="radio"
+                  id="dark-mode"
+                  name="theme"
+                  value="dark"
+                  checked="{darkMode}"
+                />
+                <MDTypography variant="button" fontWeight="regular" color="inherit" ml={0.5}>
+                  Dark Mode
+                </MDTypography>
+              </MDBox>
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Checkbox />

@@ -12,7 +12,7 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-
+/* eslint-disable */
 import { useState, useEffect } from "react";
 
 // react-router components
@@ -43,10 +43,8 @@ import { useMaterialUIController } from "context";
 function DefaultNavbar({ transparent, light, action }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
-
   const [mobileNavbar, setMobileNavbar] = useState(false);
   const [mobileView, setMobileView] = useState(false);
-
   const openMobileNavbar = ({ currentTarget }) => setMobileNavbar(currentTarget.parentNode);
   const closeMobileNavbar = () => setMobileNavbar(false);
 
@@ -61,7 +59,6 @@ function DefaultNavbar({ transparent, light, action }) {
         setMobileNavbar(false);
       }
     }
-
     /** 
      The event listener that's calling the displayMobileNavbar function when 
      resizing the window.
@@ -110,7 +107,7 @@ function DefaultNavbar({ transparent, light, action }) {
           pl={{ xs: 0, lg: 1 }}
         >
           <MDTypography variant="button" fontWeight="bold" color={light ? "white" : "dark"}>
-            Material Dashboard 2
+            DevEval
           </MDTypography>
         </MDBox>
         <MDBox color="inherit" display={{ xs: "none", lg: "flex" }} m={0} p={0}>
@@ -128,36 +125,8 @@ function DefaultNavbar({ transparent, light, action }) {
             route="/authentication/sign-in"
             light={light}
           />
+         
         </MDBox>
-        {action &&
-          (action.type === "internal" ? (
-            <MDBox display={{ xs: "none", lg: "inline-block" }}>
-              <MDButton
-                component={Link}
-                to={action.route}
-                variant="gradient"
-                color={action.color ? action.color : "info"}
-                size="small"
-              >
-                {action.label}
-              </MDButton>
-            </MDBox>
-          ) : (
-            <MDBox display={{ xs: "none", lg: "inline-block" }}>
-              <MDButton
-                component="a"
-                href={action.route}
-                target="_blank"
-                rel="noreferrer"
-                variant="gradient"
-                color={action.color ? action.color : "info"}
-                size="small"
-                sx={{ mt: -0.3 }}
-              >
-                {action.label}
-              </MDButton>
-            </MDBox>
-          ))}
         <MDBox
           display={{ xs: "inline-block", lg: "none" }}
           lineHeight={0}
@@ -181,7 +150,6 @@ DefaultNavbar.defaultProps = {
   light: false,
   action: false,
 };
-
 // Typechecking props for the DefaultNavbar
 DefaultNavbar.propTypes = {
   transparent: PropTypes.bool,
